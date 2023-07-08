@@ -7,9 +7,9 @@ async function genererItems() {
       console.log("products " + products[i]);
       // Récupération de l'élément du DOM qui accueillera les items
       const sectionItems = document.querySelector(".items");
-      // Création d'une balise dédiée au liyn d un canapé
+      // Création d'une balise dédiée au lien d un canapé
       const lienElement = document.createElement("a");  
-      lienElement.href = ("product.html?" + products[i]._id);
+      lienElement.href = ("product.html?_id=" + products[i]._id);
       // Création d'une balise dédiée à un canapé
       const itemElement = document.createElement("article");  
       // Création des balises 
