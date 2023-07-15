@@ -14,10 +14,10 @@ async function getProducts() {
       imageElement.src = products[i].imageUrl;
       imageElement.alt = products[i].altTxt;
       const nomElement = document.createElement("h3");
-      nomElement.class = "productName";
+      nomElement.className = "productName";
       nomElement.innerText = products[i].name;
       const descriptionElement = document.createElement("p");
-      descriptionElement.class = "productDescription";
+      descriptionElement.className = "productDescription";
       descriptionElement.innerText = products[i].description ?? "Pas de description pour le moment.";
       
       // On rattache les balises à leur parents
@@ -26,6 +26,7 @@ async function getProducts() {
       itemElement.appendChild(imageElement);
       itemElement.appendChild(nomElement);
       itemElement.appendChild(descriptionElement);
+
   }
 }
 getProducts();

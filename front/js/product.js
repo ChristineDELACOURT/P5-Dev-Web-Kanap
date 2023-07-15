@@ -3,16 +3,23 @@ var url = new URL(window.location.href);
 let _idProduct = 0;
 if(url.searchParams.has('_id')) {
   _idProduct = url.searchParams.get('_id');
-  console.log("_idProduct tr= " + _idProduct);
+  console.log("_idProduct = " + _idProduct);
 }
+var imageUrl = "";
+// Récupération du produit
+async function getProduct() {
+  const product = await fetch("http://localhost:3000/api/products/" + _idProduct)
+  .then(product => product.json());
+  console.log("product " + product);
 
-async function getProduct(_idProduct) {
-  const product = await fetch("http://localhost:3000/api/products/" + _idProduct).then(product => product.json());
+// Construction du html
       // Récupération de l'élément du DOM qui accueillera le produit
       const sectionImage = document.querySelector(".item__img");
       // Création de la balise image
       const imageElement = document.createElement("img");
       imageElement.src = product.imageUrl;
+      imageUrl = product.imageUrl;
+      console.log("imageUrl l22" + imageUrl);
       imageElement.alt = product.altTxt;
       // Récupération de l'élément du DOM qui accueillera le nom
       const nomCanape = document.querySelector("#title");
@@ -29,7 +36,7 @@ async function getProduct(_idProduct) {
   
       for (let j = 0; j < product.colors.length; j++) {
         console.log("product.colors[j] " + product.colors[j]);
-        // Récupération de l'élément du DOM qui accueillera les couleurs
+      // Récupération de l'élément du DOM qui accueillera les couleurs
       const nomCouleur = document.querySelector("#colors"); 
       // Création de la balise option
       const couleurElement = document.createElement("option");
@@ -40,5 +47,30 @@ async function getProduct(_idProduct) {
       }
       // On rattache les balises à leur parents
       sectionImage.appendChild(imageElement);
+      return product;
 }
-getProduct(_idProduct);
+const product = getProduct();
+console.log("product " + product);
+
+// Ajout du produit au panier
+function addToCart() {
+  const boutonAddToCart = document.querySelector("#addToCart");
+  boutonAddToCart.addEventListener("click", function () {
+    const clefProduit = (_idProduct + "_" + document.querySelector("#colors").value);
+    console.log("clefProduit " + clefProduit);
+    var quantiteProduit = Number(document.querySelector("#quantity").value);
+    console.log("quantiteProduit " + quantiteProduit);
+    var quantiteStockee = Number(window.localStorage.getItem(clefProduit));
+
+    if (quantiteStockee !== null){
+    // Mise à jour de la quantité
+    console.log("quantiteStockee = "  + quantiteStockee);  
+    window.localStorage.removeItem(clefProduit);
+    quantiteProduit += quantiteStockee;
+    console.log(clefProduit + "  "  + quantiteProduit);  
+  }
+window.localStorage.setItem(clefProduit, quantiteProduit);
+});
+}
+
+addToCart();
