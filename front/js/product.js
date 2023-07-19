@@ -1,5 +1,5 @@
 main();
-
+// fonction principale
 async function main()
 {
   var url = new URL(window.location.href);
