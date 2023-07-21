@@ -1,11 +1,13 @@
+/**
+ * Recuperation des produits (canapés) en utilisant l'API fetch
+ */
 async function getProducts() {
   const products = await fetch("http://localhost:3000/api/products").then(products => products.json());
   console.log("products " + products);
   console.log("products.length " + products.length);
   for (let i = 0; i < products.length; i++) {
-      // Récupération de l'élément du DOM qui accueillera les items
+      // Récupération de l'élément du DOM qui accueillera les produits
       const sectionItems = document.querySelector(".items");
-
       // Création des balises relatives à un canapé
       const lienElement = document.createElement("a");  
       lienElement.href = ("product.html?_id=" + products[i]._id);
