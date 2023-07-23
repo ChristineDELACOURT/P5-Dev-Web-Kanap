@@ -77,13 +77,18 @@ function addToCart(_idProduct) {
     const clefProduit = (_idProduct + "_" + document.querySelector("#colors").value);
     var quantiteProduit = Number(document.querySelector("#quantity").value);
     var quantiteStockee = Number(window.localStorage.getItem(clefProduit));
-
-    if (quantiteStockee !== null){
+    if (quantiteProduit < 1 || quantiteProduit > 100){  
+      alert("Choisissez une quantité entre 1 et 100");
+      // verification du choix d une couleur
+    }else if (Number(document.querySelector("#colors").value.length) === 0){
+      alert("Choisissez une couleur");
+    }else{
       // Mise à jour de la quantité
       window.localStorage.removeItem(clefProduit);
       alert(quantiteProduit + " produit(s) ajouté(s) au panier"); 
       quantiteProduit += quantiteStockee; 
+      window.localStorage.setItem(clefProduit, quantiteProduit);
     }
-  window.localStorage.setItem(clefProduit, quantiteProduit);
-  });
+    }
+  );
 }
