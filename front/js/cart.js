@@ -192,7 +192,9 @@ function suppression(total) {
       var nombreTotalElement = document.querySelector("#totalQuantity");
       nombreTotalElement.innerText = total.Produits; 
       var prixTotalPanier = document.querySelector("#totalPrice");
-      prixTotalPanier.innerText = total.Prix;  
+      prixTotalPanier.innerText = total.Prix; 
+      // Rechargement de la page
+      window.location.reload(); 
     });
   } 
   return total; 
